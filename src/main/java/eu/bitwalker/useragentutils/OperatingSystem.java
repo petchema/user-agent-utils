@@ -335,9 +335,15 @@ public enum OperatingSystem {
 	public static OperatingSystem parseUserAgentString(String agentString)
 	{
 		if (agentString != null) {
-			return parseUserAgentLowerCaseString(agentString.toLowerCase(), topLevelOperatingSystems);
+			final String agentLowerCaseString = agentString.toLowerCase();
+			return parseUserAgentLowerCaseString(agentLowerCaseString);
 		}
 		return OperatingSystem.UNKNOWN;
+	}
+
+	static OperatingSystem parseUserAgentLowerCaseString(
+			final String agentLowerCaseString) {
+		return parseUserAgentLowerCaseString(agentLowerCaseString, topLevelOperatingSystems);
 	}
 	
 	/**

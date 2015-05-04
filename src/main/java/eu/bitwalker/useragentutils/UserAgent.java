@@ -89,7 +89,8 @@ public class UserAgent implements Serializable
 		
 		// BOTs don't have an interesting OS for us
 		if (browser != Browser.BOT)
-			operatingSystem = OperatingSystem.parseUserAgentString(userAgentString);
+			if (userAgentString != null)
+				operatingSystem = OperatingSystem.parseUserAgentLowerCaseString(userAgentString.toLowerCase());
 		
 		this.operatingSystem = operatingSystem;
 		this.browser = browser;
