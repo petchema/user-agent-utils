@@ -83,14 +83,17 @@ public class UserAgent implements Serializable
 	
 	public UserAgent(String userAgentString)
 	{
-		Browser browser = userAgentString == null ? Browser.UNKNOWN : Browser.parseUserAgentLowerCaseString(userAgentString.toLowerCase());
-		
+		Browser browser = Browser.UNKNOWN;
 		OperatingSystem operatingSystem = OperatingSystem.UNKNOWN;
 		
-		// BOTs don't have an interesting OS for us
-		if (browser != Browser.BOT)
-			if (userAgentString != null)
-				operatingSystem = OperatingSystem.parseUserAgentLowerCaseString(userAgentString.toLowerCase());
+		if (userAgentString != null) {
+			final String agentLowerCaseString = userAgentString.toLowerCase();
+			browser = Browser.parseUserAgentLowerCaseString(agentLowerCaseString);
+			
+			// BOTs don't have an interesting OS for us
+			if (browser != Browser.BOT)
+				operatingSystem = OperatingSystem.parseUserAgentLowerCaseString(agentLowerCaseString);
+		}
 		
 		this.operatingSystem = operatingSystem;
 		this.browser = browser;
