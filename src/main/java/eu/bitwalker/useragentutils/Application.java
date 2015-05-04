@@ -135,8 +135,16 @@ public enum Application {
 	 */
 	public static Application parseReferrerString(String referrerString) {
 		// skip the empty and "-" referrer
-		if (referrerString != null && referrerString.length() > 1) {
+		if (referrerString != null) {
 			final String referrerLowerCaseString = referrerString.toLowerCase();
+			return parseReferrerLowerCaseString(referrerLowerCaseString);
+		}
+		return Application.UNKNOWN;
+	}
+
+	private static Application parseReferrerLowerCaseString(
+			final String referrerLowerCaseString) {
+		if (referrerLowerCaseString.length() > 1) {
 			for (Application applicationInList : Application.values()) {
 				if (applicationInList.isInReferrerLowerCaseString(referrerLowerCaseString))
 					return applicationInList;
