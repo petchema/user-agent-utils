@@ -401,17 +401,6 @@ public enum Browser {
 	 * @param agentString
 	 * @return
 	 */
-	private boolean containsExcludeToken(String agentString)
-	{
-		if (agentString == null) return false;
-
-		if (excludeList != null) {
-			String agentStringLowerCase = agentString.toLowerCase();
-			return containsLowerCaseExcludeToken(agentStringLowerCase);
-		}
-		return false;
-	}
-
 	private boolean containsLowerCaseExcludeToken(String agentStringLowerCase) {
 		return excludeList != null && Patterns.containsAny(agentStringLowerCase, excludeList);
 	}
