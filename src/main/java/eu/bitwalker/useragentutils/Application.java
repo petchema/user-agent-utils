@@ -120,11 +120,7 @@ public enum Application {
 	 * checks for one specific application.
 	 */
 	public boolean isInReferrerString(String referrerString) {
-		for (String alias : aliases) {
-			if (referrerString.toLowerCase().indexOf(alias) != -1)
-				return true;
-		}
-		return false;
+		return Patterns.containsAny(referrerString.toLowerCase(), aliases);
 	}
 
 	/*

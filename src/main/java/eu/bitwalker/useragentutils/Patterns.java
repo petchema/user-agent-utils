@@ -2,7 +2,7 @@ package eu.bitwalker.useragentutils;
 
 public class Patterns {
 
-	static String[] toLowerCase(String[] strArr) {
+	public static String[] toLowerCase(String[] strArr) {
 	    if (strArr == null) return null;
 	    String[] res = new String[strArr.length];
 	    for (int i=0; i<strArr.length; i++) {
@@ -10,5 +10,13 @@ public class Patterns {
 	    }
 	    return res;
 	  }
+
+	public static boolean containsAny(String string, String[] patterns) {
+		for (String pattern : patterns) {
+			if (string.contains(pattern))
+				return true;
+		}
+		return false;
+	}
 
 }

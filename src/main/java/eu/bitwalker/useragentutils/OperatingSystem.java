@@ -285,12 +285,7 @@ public enum OperatingSystem {
 	 */
 	public boolean isInUserAgentString(String agentString)
 	{		
-		for (String alias : aliases)
-		{
-			if (agentString != null && agentString.toLowerCase().indexOf(alias) != -1)
-				return true;
-		}	
-		return false;
+		return agentString != null && Patterns.containsAny(agentString.toLowerCase(), aliases);
 	}
 	
 	/**
@@ -302,10 +297,7 @@ public enum OperatingSystem {
 	private boolean containsExcludeToken(String agentString)
 	{
 		if (excludeList != null) {
-			for (String exclude : excludeList) {
-				if (agentString != null && agentString.toLowerCase().indexOf(exclude) != -1)
-					return true;
-			}
+			return Patterns.containsAny(agentString.toLowerCase(), excludeList);
 		}
 		return false;
 	}

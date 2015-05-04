@@ -385,15 +385,10 @@ public enum Browser {
 	 */
 	public boolean isInUserAgentString(String agentString)
 	{
-    if (agentString == null) return false;
+		if (agentString == null) return false;
 
-    String agentStringLowerCase = agentString.toLowerCase();
-		for (String alias : aliases)
-		{
-      if (agentStringLowerCase.contains(alias))
-				return true;
-		}
-		return false;
+		String agentStringLowerCase = agentString.toLowerCase();
+		return Patterns.containsAny(agentStringLowerCase, aliases);
 	}
 	
 	/**
@@ -404,14 +399,11 @@ public enum Browser {
 	 */
 	private boolean containsExcludeToken(String agentString)
 	{
-    if (agentString == null) return false;
+		if (agentString == null) return false;
 
 		if (excludeList != null) {
-      String agentStringLowerCase = agentString.toLowerCase();
-      for (String exclude : excludeList) {
-        if (agentStringLowerCase.contains(exclude))
-					return true;
-			}
+			String agentStringLowerCase = agentString.toLowerCase();
+			return Patterns.containsAny(agentStringLowerCase, excludeList);
 		}
 		return false;
 	}
