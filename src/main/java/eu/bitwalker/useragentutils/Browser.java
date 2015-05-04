@@ -404,14 +404,6 @@ public enum Browser {
 	private boolean containsLowerCaseExcludeToken(String agentStringLowerCase) {
 		return excludeList != null && Patterns.containsAny(agentStringLowerCase, excludeList);
 	}
-	
-	private Browser checkUserAgent(String agentString) {
-		if (agentString != null) {
-			final String agentLowerCaseString = agentString.toLowerCase();
-			return checkLowerCaseUserAgent(agentLowerCaseString);
-		}
-		return null;
-	}
 
 	private Browser checkLowerCaseUserAgent(final String agentLowerCaseString) {
 		if (isInUserAgentLowerCaseString(agentLowerCaseString)) {
