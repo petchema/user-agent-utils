@@ -285,7 +285,16 @@ public enum OperatingSystem {
 	 */
 	public boolean isInUserAgentString(String agentString)
 	{		
-		return agentString != null && Patterns.containsAny(agentString.toLowerCase(), aliases);
+		if (agentString != null) {
+			final String agentLowerCaseString = agentString.toLowerCase();
+			return isInUserAgentLowerCaseString(agentLowerCaseString);
+		}
+		return false;
+	}
+
+	private boolean isInUserAgentLowerCaseString(
+			final String agentLowerCaseString) {
+		return Patterns.containsAny(agentLowerCaseString, aliases);
 	}
 	
 	/**
@@ -303,7 +312,7 @@ public enum OperatingSystem {
 	}
 		
 	private OperatingSystem checkUserAgent(String agentString) {
-		if (this.isInUserAgentString(agentString)) {
+		if (agentString != null && this.isInUserAgentLowerCaseString(agentString.toLowerCase())) {
 			if (this.children.size() > 0) {
 				for (OperatingSystem childOperatingSystem : this.children) {
 					OperatingSystem match = childOperatingSystem.checkUserAgent(agentString);
