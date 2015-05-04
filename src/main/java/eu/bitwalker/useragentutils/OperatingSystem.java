@@ -354,13 +354,15 @@ public enum OperatingSystem {
 	 */
 	public static OperatingSystem parseUserAgentString(String agentString, List<OperatingSystem> operatingSystems)
 	{
-		for (OperatingSystem operatingSystem : operatingSystems)
-		{
-			OperatingSystem match = operatingSystem.checkUserAgent(agentString);
-			if (match != null) {
-				return match; // either current operatingSystem or a child object
-			}
-		}	
+		if (agentString != null) {
+			for (OperatingSystem operatingSystem : operatingSystems)
+			{
+				OperatingSystem match = operatingSystem.checkUserAgentLowerCase(agentString.toLowerCase());
+				if (match != null) {
+					return match; // either current operatingSystem or a child object
+				}
+			}	
+		}
 		return OperatingSystem.UNKNOWN;
 	}
 		
