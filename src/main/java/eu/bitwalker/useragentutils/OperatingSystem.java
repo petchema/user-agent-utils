@@ -218,8 +218,8 @@ public enum OperatingSystem {
 		// combine manufacturer and version id to one unique id. 
 		this.id =  (short) ( ( manufacturer.getId() << 8) + (byte) versionId);
 		this.name = name;
-		this.aliases = aliases;
-		this.excludeList = exclude;
+		this.aliases = Patterns.toLowerCase(aliases);
+		this.excludeList = Patterns.toLowerCase(exclude);
 		this.deviceType = deviceType;
 		if (versionRegexString != null) { // not implemented yet
 			this.versionRegEx = Pattern.compile(versionRegexString);
@@ -287,7 +287,7 @@ public enum OperatingSystem {
 	{		
 		for (String alias : aliases)
 		{
-			if (agentString != null && agentString.toLowerCase().indexOf(alias.toLowerCase()) != -1)
+			if (agentString != null && agentString.toLowerCase().indexOf(alias) != -1)
 				return true;
 		}	
 		return false;
@@ -303,7 +303,7 @@ public enum OperatingSystem {
 	{
 		if (excludeList != null) {
 			for (String exclude : excludeList) {
-				if (agentString != null && agentString.toLowerCase().indexOf(exclude.toLowerCase()) != -1)
+				if (agentString != null && agentString.toLowerCase().indexOf(exclude) != -1)
 					return true;
 			}
 		}
