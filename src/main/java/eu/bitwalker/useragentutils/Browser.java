@@ -440,9 +440,15 @@ public enum Browser {
 	public static Browser parseUserAgentString(String agentString)
 	{
 		if (agentString != null) {
-			return parseUserAgentLowerCaseString(agentString.toLowerCase(), topLevelBrowsers);
+			final String agentLowerCaseString = agentString.toLowerCase();
+			return parseUserAgentLowerCaseString(agentLowerCaseString);
 		}
 		return Browser.UNKNOWN;
+	}
+
+	static Browser parseUserAgentLowerCaseString(
+			final String agentLowerCaseString) {
+		return parseUserAgentLowerCaseString(agentLowerCaseString, topLevelBrowsers);
 	}
 	
 	/**
