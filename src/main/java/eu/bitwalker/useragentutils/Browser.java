@@ -388,6 +388,10 @@ public enum Browser {
 		if (agentString == null) return false;
 
 		String agentStringLowerCase = agentString.toLowerCase();
+		return isInUserAgentLowerCaseString(agentStringLowerCase);
+	}
+
+	private boolean isInUserAgentLowerCaseString(String agentStringLowerCase) {
 		return Patterns.containsAny(agentStringLowerCase, aliases);
 	}
 	
@@ -409,7 +413,7 @@ public enum Browser {
 	}
 	
 	private Browser checkUserAgent(String agentString) {
-		if (this.isInUserAgentString(agentString)) {
+		if (agentString != null && isInUserAgentLowerCaseString(agentString.toLowerCase())) {
 			
 			if (this.children.size() > 0) {
 				for (Browser childBrowser : this.children) {
