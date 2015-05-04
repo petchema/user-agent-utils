@@ -308,14 +308,6 @@ public enum OperatingSystem {
 		return excludeList != null && Patterns.containsAny(agentLowerCaseString, excludeList);
 	}
 		
-	private OperatingSystem checkUserAgent(String agentString) {
-		if (agentString != null) {
-			final String agentLowerCaseString = agentString.toLowerCase();
-			return checkUserAgentLowerCase(agentLowerCaseString);
-		}
-		return null;
-	}
-
 	private OperatingSystem checkUserAgentLowerCase(final String agentLowerCaseString) {
 		if (this.isInUserAgentLowerCaseString(agentLowerCaseString)) {
 			if (this.children.size() > 0) {
