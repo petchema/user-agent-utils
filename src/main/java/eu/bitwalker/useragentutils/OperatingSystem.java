@@ -306,9 +306,15 @@ public enum OperatingSystem {
 	private boolean containsExcludeToken(String agentString)
 	{
 		if (excludeList != null) {
-			return Patterns.containsAny(agentString.toLowerCase(), excludeList);
+			final String agentLowerCaseString = agentString.toLowerCase();
+			return containsLowerCaseExcludeToken(agentLowerCaseString);
 		}
 		return false;
+	}
+
+	private boolean containsLowerCaseExcludeToken(
+			final String agentLowerCaseString) {
+		return excludeList != null && Patterns.containsAny(agentLowerCaseString, excludeList);
 	}
 		
 	private OperatingSystem checkUserAgent(String agentString) {
@@ -322,7 +328,7 @@ public enum OperatingSystem {
 				}
 			}
 			// if children didn't match we continue checking the current to prevent false positives
-			if (!this.containsExcludeToken(agentString)) {
+			if (!(agentString != null && this.containsLowerCaseExcludeToken(agentString.toLowerCase()))) {
 				return this;
 			}
 			
