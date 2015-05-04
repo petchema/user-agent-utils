@@ -120,7 +120,13 @@ public enum Application {
 	 * checks for one specific application.
 	 */
 	public boolean isInReferrerString(String referrerString) {
-		return Patterns.containsAny(referrerString.toLowerCase(), aliases);
+		final String referrerLowerCaseString = referrerString.toLowerCase();
+		return isInReferrerLowerCaseString(referrerLowerCaseString);
+	}
+
+	private boolean isInReferrerLowerCaseString(
+			final String referrerLowerCaseString) {
+		return Patterns.containsAny(referrerLowerCaseString, aliases);
 	}
 
 	/*
@@ -130,8 +136,9 @@ public enum Application {
 	public static Application parseReferrerString(String referrerString) {
 		// skip the empty and "-" referrer
 		if (referrerString != null && referrerString.length() > 1) {
+			final String referrerLowerCaseString = referrerString.toLowerCase();
 			for (Application applicationInList : Application.values()) {
-				if (applicationInList.isInReferrerString(referrerString))
+				if (applicationInList.isInReferrerLowerCaseString(referrerLowerCaseString))
 					return applicationInList;
 			}
 		}
