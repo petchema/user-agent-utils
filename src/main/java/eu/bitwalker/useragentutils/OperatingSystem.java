@@ -334,7 +334,10 @@ public enum OperatingSystem {
 	 */
 	public static OperatingSystem parseUserAgentString(String agentString)
 	{
-		return parseUserAgentString(agentString, topLevelOperatingSystems);
+		if (agentString != null) {
+			return parseUserAgentLowerCaseString(agentString.toLowerCase(), topLevelOperatingSystems);
+		}
+		return OperatingSystem.UNKNOWN;
 	}
 	
 	/**
@@ -347,14 +350,23 @@ public enum OperatingSystem {
 	public static OperatingSystem parseUserAgentString(String agentString, List<OperatingSystem> operatingSystems)
 	{
 		if (agentString != null) {
-			for (OperatingSystem operatingSystem : operatingSystems)
-			{
-				OperatingSystem match = operatingSystem.checkUserAgentLowerCase(agentString.toLowerCase());
-				if (match != null) {
-					return match; // either current operatingSystem or a child object
-				}
-			}	
+			final String agentLowerCaseString = agentString.toLowerCase();
+			return parseUserAgentLowerCaseString(agentLowerCaseString,
+					operatingSystems);
 		}
+		return OperatingSystem.UNKNOWN;
+	}
+
+	private static OperatingSystem parseUserAgentLowerCaseString(
+			final String agentLowerCaseString,
+			List<OperatingSystem> operatingSystems) {
+		for (OperatingSystem operatingSystem : operatingSystems)
+		{
+			OperatingSystem match = operatingSystem.checkUserAgentLowerCase(agentLowerCaseString);
+			if (match != null) {
+				return match; // either current operatingSystem or a child object
+			}
+		}	
 		return OperatingSystem.UNKNOWN;
 	}
 		
