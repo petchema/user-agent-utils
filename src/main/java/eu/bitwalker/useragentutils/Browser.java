@@ -407,9 +407,13 @@ public enum Browser {
 
 		if (excludeList != null) {
 			String agentStringLowerCase = agentString.toLowerCase();
-			return Patterns.containsAny(agentStringLowerCase, excludeList);
+			return containsLowerCaseExcludeToken(agentStringLowerCase);
 		}
 		return false;
+	}
+
+	private boolean containsLowerCaseExcludeToken(String agentStringLowerCase) {
+		return excludeList != null && Patterns.containsAny(agentStringLowerCase, excludeList);
 	}
 	
 	private Browser checkUserAgent(String agentString) {
@@ -425,7 +429,7 @@ public enum Browser {
 			}
 			
 			// if children didn't match we continue checking the current to prevent false positives
-			if (!this.containsExcludeToken(agentString)) {
+			if (!containsLowerCaseExcludeToken(agentString.toLowerCase())) {
 				return this;
 			}
 			
