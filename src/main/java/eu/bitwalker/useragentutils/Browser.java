@@ -461,11 +461,15 @@ public enum Browser {
 	 */
 	public static Browser parseUserAgentString(String agentString, List<Browser> browsers)
 	{
-		for (Browser browser : browsers) {
-			Browser match = browser.checkUserAgent(agentString);
-			if (match != null) {
-				return match; // either current operatingSystem or a child object
+		if (agentString != null) {
+			final String agentLowerCaseString = agentString.toLowerCase();
+			for (Browser browser : browsers) {
+				Browser match = browser.checkLowerCaseUserAgent(agentLowerCaseString);
+				if (match != null) {
+					return match; // either current operatingSystem or a child object
+				}
 			}
+			return Browser.UNKNOWN;
 		}
 		return Browser.UNKNOWN;
 	}
