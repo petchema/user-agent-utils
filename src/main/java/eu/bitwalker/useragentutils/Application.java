@@ -134,7 +134,6 @@ public enum Application {
 	 * string. If no match can be found Application.UNKNOWN will be returned.
 	 */
 	public static Application parseReferrerString(String referrerString) {
-		// skip the empty and "-" referrer
 		if (referrerString != null) {
 			final String referrerLowerCaseString = referrerString.toLowerCase();
 			return parseReferrerLowerCaseString(referrerLowerCaseString);
@@ -144,6 +143,7 @@ public enum Application {
 
 	private static Application parseReferrerLowerCaseString(
 			final String referrerLowerCaseString) {
+		// skip the empty and "-" referrer
 		if (referrerLowerCaseString.length() > 1) {
 			for (Application applicationInList : Application.values()) {
 				if (applicationInList.isInReferrerLowerCaseString(referrerLowerCaseString))
