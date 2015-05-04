@@ -303,15 +303,6 @@ public enum OperatingSystem {
 	 * @param agentString
 	 * @return
 	 */
-	private boolean containsExcludeToken(String agentString)
-	{
-		if (excludeList != null) {
-			final String agentLowerCaseString = agentString.toLowerCase();
-			return containsLowerCaseExcludeToken(agentLowerCaseString);
-		}
-		return false;
-	}
-
 	private boolean containsLowerCaseExcludeToken(
 			final String agentLowerCaseString) {
 		return excludeList != null && Patterns.containsAny(agentLowerCaseString, excludeList);
