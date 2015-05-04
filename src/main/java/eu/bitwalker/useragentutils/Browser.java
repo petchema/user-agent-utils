@@ -406,22 +406,26 @@ public enum Browser {
 	}
 	
 	private Browser checkUserAgent(String agentString) {
-		if (agentString != null && isInUserAgentLowerCaseString(agentString.toLowerCase())) {
-			
-			if (this.children.size() > 0) {
-				for (Browser childBrowser : this.children) {
-					Browser match = childBrowser.checkUserAgent(agentString);
-					if (match != null) { 
-						return match;
+		if (agentString != null) {
+			final String agentLowerCaseString = agentString.toLowerCase();
+			if (isInUserAgentLowerCaseString(agentLowerCaseString)) {
+
+				if (this.children.size() > 0) {
+					for (Browser childBrowser : this.children) {
+						Browser match = childBrowser
+								.checkUserAgent(agentString);
+						if (match != null) {
+							return match;
+						}
 					}
 				}
+
+				// if children didn't match we continue checking the current to
+				// prevent false positives
+				if (!containsLowerCaseExcludeToken(agentLowerCaseString)) {
+					return this;
+				}
 			}
-			
-			// if children didn't match we continue checking the current to prevent false positives
-			if (!containsLowerCaseExcludeToken(agentString.toLowerCase())) {
-				return this;
-			}
-			
 		}
 		return null;
 	}
