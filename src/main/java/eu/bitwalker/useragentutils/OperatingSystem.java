@@ -305,7 +305,7 @@ public enum OperatingSystem {
 	 */
 	private boolean containsLowerCaseExcludeToken(
 			final String agentLowerCaseString) {
-		return excludeList != null && Patterns.containsAny(agentLowerCaseString, excludeList);
+		return Patterns.containsAny(agentLowerCaseString, excludeList);
 	}
 		
 	private OperatingSystem checkUserAgentLowerCase(final String agentLowerCaseString) {

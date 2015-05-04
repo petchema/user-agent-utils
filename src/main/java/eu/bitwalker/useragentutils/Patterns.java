@@ -12,9 +12,11 @@ public class Patterns {
 	  }
 
 	public static boolean containsAny(String string, String[] patterns) {
-		for (String pattern : patterns) {
-			if (string.contains(pattern))
-				return true;
+		if (patterns != null) {
+			for (String pattern : patterns) {
+				if (string.contains(pattern))
+					return true;
+			}
 		}
 		return false;
 	}

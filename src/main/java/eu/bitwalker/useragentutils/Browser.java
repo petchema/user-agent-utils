@@ -402,7 +402,7 @@ public enum Browser {
 	 * @return
 	 */
 	private boolean containsLowerCaseExcludeToken(String agentStringLowerCase) {
-		return excludeList != null && Patterns.containsAny(agentStringLowerCase, excludeList);
+		return Patterns.containsAny(agentStringLowerCase, excludeList);
 	}
 
 	private Browser checkLowerCaseUserAgent(final String agentLowerCaseString) {
