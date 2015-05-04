@@ -309,20 +309,27 @@ public enum OperatingSystem {
 	}
 		
 	private OperatingSystem checkUserAgent(String agentString) {
-		if (agentString != null && this.isInUserAgentLowerCaseString(agentString.toLowerCase())) {
+		if (agentString != null) {
+			final String agentLowerCaseString = agentString.toLowerCase();
+			return checkUserAgentLowerCase(agentLowerCaseString);
+		}
+		return null;
+	}
+
+	private OperatingSystem checkUserAgentLowerCase(final String agentLowerCaseString) {
+		if (this.isInUserAgentLowerCaseString(agentLowerCaseString)) {
 			if (this.children.size() > 0) {
 				for (OperatingSystem childOperatingSystem : this.children) {
-					OperatingSystem match = childOperatingSystem.checkUserAgent(agentString);
+					OperatingSystem match = childOperatingSystem.checkUserAgentLowerCase(agentLowerCaseString);
 					if (match != null) { 
 						return match;
 					}
 				}
 			}
 			// if children didn't match we continue checking the current to prevent false positives
-			if (!(agentString != null && this.containsLowerCaseExcludeToken(agentString.toLowerCase()))) {
+			if (!this.containsLowerCaseExcludeToken(agentLowerCaseString)) {
 				return this;
 			}
-			
 		}
 		return null;
 	}
